@@ -2,7 +2,9 @@
 scale.offset = 0;
 scale.lastRead = 0;
 scale.read = function () {
-    scale.lastRead = Math.floor((Math.random() * 10) + 1500);
+    //scale.lastRead = Math.floor((Math.random() * 10) + 1500);
+    var scaleCompononet = new Components.Scale();
+    scale.lastRead = scaleCompononet.getReading();
     $("#result").text(scale.lastRead - scale.offset + "kg");
 }
 scale.tare = function () {

@@ -6,16 +6,27 @@ namespace AviaSemiconductor
     //24-Bit Analog-to-Digital Converter (ADC) for Weigh Scales
     public class HX711
     {
+        #region setup
+
         //PD_SCK
-        public GpioPin PowerDownAndSerialClockInput { get; set; }
+        private GpioPin PowerDownAndSerialClockInput;
 
         //DOUT
-        public GpioPin SerialDataOutput { get; set; }
+        private GpioPin SerialDataOutput;
+
+        public HX711(GpioPin powerDownAndSerialClockInput, GpioPin serialDataOutput)
+        {
+            PowerDownAndSerialClockInput = powerDownAndSerialClockInput;
+            SerialDataOutput = serialDataOutput;
+        }
+
+        #endregion
 
         #region data retrieval
+
         //When output data is not ready for retrieval,
         //digital output pin DOUT is high.
-        public bool IsReady()
+        private bool IsReady()
         {
             return SerialDataOutput.Read() == GpioPinValue.Low;
         }
@@ -26,14 +37,19 @@ namespace AviaSemiconductor
         //shifted out.
         public int Read()
         {
+            while (!IsReady())
+            {
+
+            }
             byte[] rawData = new byte[] {ReadByte(), ReadByte(), ReadByte() };
-            for(int pulses = 24; pulses < 24 + (int)InputAndGainSelection; pulses++)
+            for(int pulses = 24; pulses < 25 + (int)InputAndGainSelection; pulses++)
             {
                 PowerDownAndSerialClockInput.Write(GpioPinValue.High);
                 PowerDownAndSerialClockInput.Write(GpioPinValue.Low);
             }
             return GetInt32FromBit24(rawData);
         }
+
         private static int GetInt32FromBit24(byte[] byteArray)
         {
             int result = (
@@ -51,6 +67,7 @@ namespace AviaSemiconductor
             }
             return result;
         }
+
         private byte ReadByte()
         {
             byte result = new byte();
@@ -58,8 +75,9 @@ namespace AviaSemiconductor
             int bitIndex = 0;
             for (int i = 0; i < Byte.Length; i++)
             {
-                while (PowerDownAndSerialClockInput.Read() == GpioPinValue.Low) { }
-                while (PowerDownAndSerialClockInput.Read() == GpioPinValue.High)
+                PowerDownAndSerialClockInput.Write(GpioPinValue.Low);
+                PowerDownAndSerialClockInput.Write(GpioPinValue.High);
+                PowerDownAndSerialClockInput.Write(GpioPinValue.Low);
                 {
                     Byte[i] = SerialDataOutput.Read() == GpioPinValue.High;
                 }
@@ -71,14 +89,13 @@ namespace AviaSemiconductor
             }
             return result;
         }
+
         #endregion
 
         #region input selection/ gain selection
-        public enum InputAndGainOption : int
-        {
-            A128 = 1, B32 = 2, A64 = 3
-        }
+
         private InputAndGainOption _InputAndGainSelection = InputAndGainOption.A128;
+
         public InputAndGainOption InputAndGainSelection
         {
             get
@@ -91,9 +108,11 @@ namespace AviaSemiconductor
                 Read();
             }
         }
+
         #endregion
 
         #region power
+
         //When PD_SCK pin changes from low to high
         //and stays at high for longer than 60µs, HX711
         //enters power down mode
@@ -113,6 +132,7 @@ namespace AviaSemiconductor
         }
         //After a reset or power-down event, input
         //selection is default to Channel A with a gain of 128. 
+
         #endregion
 
     }

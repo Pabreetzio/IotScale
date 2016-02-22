@@ -7,8 +7,8 @@
     <ProjectGuid>{02F0AF30-5943-4589-8BBB-427E5968474A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HX711</RootNamespace>
-    <AssemblyName>HX711</AssemblyName>
+    <RootNamespace>AviaSemiconductor</RootNamespace>
+    <AssemblyName>AviaSemiconductor</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.10586.0</TargetPlatformVersion>
@@ -108,8 +108,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HX711.cs" />
+    <Compile Include="InputAndGainOption.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Properties\HX711.rd.xml" />
+    <EmbeddedResource Include="Properties\AviaSemiconductor.rd.xml" />
   </ItemGroup>
   <ItemGroup>
     <SDKReference Include="WindowsIoT, Version=10.0.10586.0">

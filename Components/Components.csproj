@@ -7,8 +7,8 @@
     <ProjectGuid>{B4F5A92C-C184-459A-9CE6-AA87F5DF083C}</ProjectGuid>
     <OutputType>winmdobj</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Scale</RootNamespace>
-    <AssemblyName>Scale</AssemblyName>
+    <RootNamespace>Components</RootNamespace>
+    <AssemblyName>Components</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.10586.0</TargetPlatformVersion>
@@ -121,6 +121,9 @@
     <SDKReference Include="WindowsIoT, Version=10.0.10586.0">
       <Name>Windows IoT Extensions for the UWP</Name>
     </SDKReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Readme.md" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
