@@ -1,4 +1,5 @@
 ﻿
+using System;
 using Windows.Devices.Gpio;
 
 namespace AviaSemiconductor
@@ -17,7 +18,10 @@ namespace AviaSemiconductor
         public HX711(GpioPin powerDownAndSerialClockInput, GpioPin serialDataOutput)
         {
             PowerDownAndSerialClockInput = powerDownAndSerialClockInput;
+            powerDownAndSerialClockInput.SetDriveMode(GpioPinDriveMode.Output);
+
             SerialDataOutput = serialDataOutput;
+            SerialDataOutput.SetDriveMode(GpioPinDriveMode.Input);
         }
 
         #endregion
@@ -41,53 +45,15 @@ namespace AviaSemiconductor
             {
 
             }
-            byte[] rawData = new byte[] {ReadByte(), ReadByte(), ReadByte() };
-            for(int pulses = 24; pulses < 25 + (int)InputAndGainSelection; pulses++)
+            string binaryData = "";
+            for(int pulses = 0; pulses < 26; pulses++)
             {
                 PowerDownAndSerialClockInput.Write(GpioPinValue.High);
                 PowerDownAndSerialClockInput.Write(GpioPinValue.Low);
+                if (pulses < 25)
+                    binaryData += (int)SerialDataOutput.Read();
             }
-            return GetInt32FromBit24(rawData);
-        }
-
-        private static int GetInt32FromBit24(byte[] byteArray)
-        {
-            int result = (
-                 ((0xFF & byteArray[0]) << 16) |
-                 ((0xFF & byteArray[1]) << 8) |
-                 (0xFF & byteArray[2])
-               );
-            if ((result & 0x00800000) > 0)
-            {
-                result = (int)((uint)result | (uint)0xFF000000);
-            }
-            else
-            {
-                result = (int)((uint)result & (uint)0x00FFFFFF);
-            }
-            return result;
-        }
-
-        private byte ReadByte()
-        {
-            byte result = new byte();
-            bool[] Byte = new bool[8];
-            int bitIndex = 0;
-            for (int i = 0; i < Byte.Length; i++)
-            {
-                PowerDownAndSerialClockInput.Write(GpioPinValue.Low);
-                PowerDownAndSerialClockInput.Write(GpioPinValue.High);
-                PowerDownAndSerialClockInput.Write(GpioPinValue.Low);
-                {
-                    Byte[i] = SerialDataOutput.Read() == GpioPinValue.High;
-                }
-                if (Byte[i])
-                {
-                    result |= (byte)(((byte)1) << bitIndex);
-                }
-                bitIndex++;
-            }
-            return result;
+            return Convert.ToInt32(binaryData, 2);
         }
 
         #endregion

@@ -1,18 +1,18 @@
 ﻿var scale = {}
 scale.offset = 0;
 scale.lastRead = 0;
+scale.component = new Components.Scale();
 scale.read = function () {
-    //scale.lastRead = Math.floor((Math.random() * 10) + 1500);
-    var scaleCompononet = new Components.Scale();
-    scale.lastRead = scaleCompononet.getReading();
-    $("#result").text(scale.lastRead - scale.offset + "kg");
+    scale.lastRead = scale.component.getReading();
+    $("#result").text(scale.lastRead + " kg");
 }
 scale.tare = function () {
-    scale.offset = scale.lastRead;
-    $("#result").text(scale.lastRead - scale.offset + "kg");
+    scale.component.tare();
+    scale.lastRead = 0;
+    $("#result").text(scale.lastRead + " kg");
 }
 scale.calibrate = function (currentWeight) {
-    
+    scale.component.calibrate(currentWeight);
 }
 $(document).ready(function () {
     $('#button-read').on('click', function () {

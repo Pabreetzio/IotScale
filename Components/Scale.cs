@@ -25,47 +25,36 @@ namespace Components
                     && controller.TryOpenPin(23, GpioSharingMode.Exclusive, out clockPin, out status)
                     && controller.TryOpenPin(24, GpioSharingMode.Exclusive, out dataPin, out status))
                 {
-                    clockPin.SetDriveMode(GpioPinDriveMode.Output);
-                    dataPin.SetDriveMode(GpioPinDriveMode.Input);
                     device = new HX711(clockPin, dataPin);
-                    device.PowerOn();
                 }
                 else device = null;
             }
+            if(device!= null)
+                device.PowerOn();
         }
-        private void releaseDevice()
-        {
-            GpioController controller = GpioController.GetDefault();
-            device.PowerDown();
-            dataPin.Dispose();
-            clockPin.Dispose();
-        }
-        int BoolArrayToInt(bool[] bits)
-        {
-            if (bits.Length > 32) throw new System.Exception("Can only fit 32 bits in a int");
 
-            int r = 0;
-            for (int i = 0; i < bits.Length; i++) if (bits[i]) r |= 1 << (bits.Length - i);
-            return r;
+        private int _GetOutputData()
+        {
+            initializeDevice();
+            int result = 0;
+            if (device != null)
+            {
+                result = device.Read();
+            }
+            device.PowerDown();
+            return result;
         }
         public double GetReading()
         {
-            initializeDevice();
-            double result = 1337;
-            if (device != null)
-            {
-                result = (device.Read() - offset) * calibrationConstant;
-            }
-            releaseDevice();
-            return result;
+            return (_GetOutputData() - offset) / calibrationConstant;
         }
         public void Tare()
         {
-            offset = device.Read();
+            offset = _GetOutputData();
         }
         public void Calibrate(int grams)
         {
-            calibrationConstant = (device.Read() - offset) / grams;
+            calibrationConstant = (_GetOutputData() - offset) / grams;
         }
     }
 }
