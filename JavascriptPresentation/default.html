@@ -14,13 +14,82 @@
     <script src="/js/default.js"></script>
     <script src="/js/jquery-2.2.0.min.js"></script>
     <script src="/js/scale.js"></script>
-    <script type="text/javascript">$('#result').html("goodnight moon");</script>
+    <script type="text/javascript">
+        WinJS.Namespace.define("Sample", {
+            outputCommand: WinJS.UI.eventHandler(function (ev) {
+                var status = document.querySelector(".status");
+                var command = ev.currentTarget;
+                if (command.winControl) {
+                    var label = command.winControl.label || command.winControl.icon || "button";
+                    var section = command.winControl.section || "";
+                    var msg = section + " command " + label + " was pressed";
+                    status.textContent = msg;
+                }
+            })
+        });
+        WinJS.UI.processAll();
+    </script>
 </head>
 <body class="win-type-body">
-    <p>Content goes here</p>
-    <button id="button-read">Get Reading</button>
-    <button id="button-tare">Tare</button>
-    <input type="number" id="input-calibrate"/><button id="button-calibrate">Calibrate</button> 
-    <div id="result"></div>
+    <div class="basicToolbar" data-win-control="WinJS.UI.ToolBar">
+        <!-- Primary commands -->
+        <button data-win-control="WinJS.UI.Command" data-win-options="{
+            id:'cmdEdit',
+            label:'edit',
+            section:'primary',
+            type:'button',
+            icon: 'edit'
+            }"></button>
+        <button data-win-control="WinJS.UI.Command" data-win-options="{
+            id:'cmdDelete',
+            label:'delete',
+            section:'primary',
+            type:'button',
+            icon: 'delete'
+            }"></button>
+        <button data-win-control="WinJS.UI.Command" data-win-options="{
+            id:'cmdFavorite',
+            label:'favorite',
+            section:'primary',
+            type:'toggle',
+            icon: 'favorite'
+            }"></button>
+        <button data-win-control="WinJS.UI.Command" data-win-options="{
+            id:'cmdOpenWith',
+            label:'open with',
+            section:'primary',
+            type:'button',
+            icon: 'openfile'
+            }"></button>
+        <button data-win-control="WinJS.UI.Command" data-win-options="{
+            id:'cmdDownload',
+            label:'download',
+            section:'primary',
+            type:'button',
+            icon: 'download'
+            }"></button>
+
+        <!-- Secondary command -->
+        <button data-win-control="WinJS.UI.Command" data-win-options="{
+            id:'cmdSettings',
+            label:'settings',
+            section:'secondary',
+            type:'button'
+            }"></button>
+        <button data-win-control="WinJS.UI.Command" data-win-options="{
+            id:'cmdShare',
+            label:'share',
+            section:'secondary',
+            type:'button'
+            }"></button>
+    </div>
+    <div class="status"></div>
+    <div class="contenttext">
+        <h2 class="win-h2">IoT Scale</h2>
+        <button id="button-read">Get Reading</button>
+        <button id="button-tare">Tare</button>
+        <input type="number" id="input-calibrate" /><button id="button-calibrate">Calibrate</button>
+        <div id="result"></div>
+    </div>
 </body>
 </html>
