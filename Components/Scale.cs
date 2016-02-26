@@ -1,6 +1,6 @@
 ﻿using AviaSemiconductor;
 using Windows.Devices.Gpio;
-
+using Windows.Storage;
 namespace Components
 {
     public sealed class Scale
@@ -12,8 +12,11 @@ namespace Components
         GpioPin clockPin;
         public Scale()
         {
-            offset = 0;
-            calibrationConstant = 1;
+            ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
+            StorageFolder localFolder = ApplicationData.Current.LocalFolder;
+            offset = System.Convert.ToInt32(localSettings.Values["offset"]);
+            calibrationConstant = System.Convert.ToDouble(localSettings.Values["calibrationConstant"]);
+            if (calibrationConstant == 0) calibrationConstant = 1;
         }
         private void initializeDevice()
         {
@@ -55,6 +58,8 @@ namespace Components
         public void Calibrate(int grams)
         {
             calibrationConstant = (_GetOutputData() - offset) / grams;
+            ApplicationData.Current.LocalSettings.Values["calibrationConstant"] = calibrationConstant;
+            ApplicationData.Current.LocalSettings.Values["offset"] = offset;
         }
     }
 }
