@@ -11,17 +11,7 @@ scale.tare = function () {
     scale.lastRead = 0;
     $("#result").text(scale.lastRead + " kg");
 }
-scale.calibrate = function (currentWeight) {
+scale.calibrate = function () {
+    var currentWeight = $('#input-calibrate').val()
     scale.component.calibrate(currentWeight);
 }
-$(document).ready(function () {
-    $('#button-read').on('click', function () {
-        scale.read();
-    });
-    $('#button-tare').on('click', function () {
-        scale.tare();
-    });
-    $('#button-calibrate').on('click', function () {
-        scale.calibrate($('#input-calibrate').val());
-    });
-});

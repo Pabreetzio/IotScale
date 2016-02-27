@@ -10,10 +10,10 @@
     <script src="WinJS/js/ui.js"></script>
 
     <!-- DigitalScale references -->
-    <link href="/css/default.css" rel="stylesheet" />
-    <script src="/js/default.js"></script>
-    <script src="/js/jquery-2.2.0.min.js"></script>
-    <script src="/js/scale.js"></script>
+    <link href="css/default.css" rel="stylesheet" />
+    <script src="js/default.js"></script>
+    <script src="js/jquery-2.2.0.min.js"></script>
+    <script src="js/scale.js"></script>
     <script type="text/javascript">
         WinJS.Namespace.define("Sample", {
             outputCommand: WinJS.UI.eventHandler(function (ev) {
@@ -31,65 +31,48 @@
     </script>
 </head>
 <body class="win-type-body">
-    <div class="basicToolbar" data-win-control="WinJS.UI.ToolBar">
+    <h2 style="text-align:center;" class="win-h2">Internet of Things Scale</h2>
+    <div class="basicToolbar" data-win-control="WinJS.UI.ToolBar" data-win-options="{closedDisplayMode: 'full'}">
         <!-- Primary commands -->
         <button data-win-control="WinJS.UI.Command" data-win-options="{
-            id:'cmdEdit',
-            label:'edit',
+            id:'cmdRead',
+            label:'Read',
             section:'primary',
             type:'button',
-            icon: 'edit'
+            icon: 'play',
+            onclick: scale.Read
             }"></button>
         <button data-win-control="WinJS.UI.Command" data-win-options="{
-            id:'cmdDelete',
-            label:'delete',
+            id:'cmdPause',
+            label:'Pause',
             section:'primary',
             type:'button',
-            icon: 'delete'
+            icon: 'pause'
             }"></button>
         <button data-win-control="WinJS.UI.Command" data-win-options="{
-            id:'cmdFavorite',
-            label:'favorite',
-            section:'primary',
-            type:'toggle',
-            icon: 'favorite'
-            }"></button>
-        <button data-win-control="WinJS.UI.Command" data-win-options="{
-            id:'cmdOpenWith',
-            label:'open with',
+            id:'cmdTare',
+            label:'Tare',
             section:'primary',
             type:'button',
-            icon: 'openfile'
+            icon: 'download',
+            onclick: scale.tare
             }"></button>
+        <div data-win-control="WinJS.UI.AppBarCommand" data-win-options="{ id: 'input-calibrate', type: 'content'}">
+            <div class="win-interactive" data-win-control="WinJS.UI.AutoSuggestBox" 
+                 data-win-options="{placeholderText:'Calibrated value'}"></div>
+        </div>
         <button data-win-control="WinJS.UI.Command" data-win-options="{
-            id:'cmdDownload',
-            label:'download',
+            id:'cmdCalibrate',
+            label:'Calibrate',
             section:'primary',
             type:'button',
-            icon: 'download'
-            }"></button>
-
-        <!-- Secondary command -->
-        <button data-win-control="WinJS.UI.Command" data-win-options="{
-            id:'cmdSettings',
-            label:'settings',
-            section:'secondary',
-            type:'button'
-            }"></button>
-        <button data-win-control="WinJS.UI.Command" data-win-options="{
-            id:'cmdShare',
-            label:'share',
-            section:'secondary',
-            type:'button'
+            icon: 'repair',
+            onclick: scale.calibrate
             }"></button>
     </div>
     <div class="status"></div>
     <div class="contenttext">
-        <h2 class="win-h2">IoT Scale</h2>
-        <button id="button-read">Get Reading</button>
-        <button id="button-tare">Tare</button>
-        <input type="number" id="input-calibrate" /><button id="button-calibrate">Calibrate</button>
-        <div id="result"></div>
+        <div id="result">0.0g</div>
     </div>
 </body>
 </html>
