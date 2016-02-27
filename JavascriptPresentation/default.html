@@ -14,21 +14,6 @@
     <script src="js/default.js"></script>
     <script src="js/jquery-2.2.0.min.js"></script>
     <script src="js/scale.js"></script>
-    <script type="text/javascript">
-        WinJS.Namespace.define("Sample", {
-            outputCommand: WinJS.UI.eventHandler(function (ev) {
-                var status = document.querySelector(".status");
-                var command = ev.currentTarget;
-                if (command.winControl) {
-                    var label = command.winControl.label || command.winControl.icon || "button";
-                    var section = command.winControl.section || "";
-                    var msg = section + " command " + label + " was pressed";
-                    status.textContent = msg;
-                }
-            })
-        });
-        WinJS.UI.processAll();
-    </script>
 </head>
 <body class="win-type-body">
     <h2 style="text-align:center;" class="win-h2">Internet of Things Scale</h2>
@@ -40,22 +25,22 @@
             section:'primary',
             type:'button',
             icon: 'play',
-            onclick: scale.Read
+            onclick: Scale.read
             }"></button>
-        <button data-win-control="WinJS.UI.Command" data-win-options="{
+        <!--<button data-win-control="WinJS.UI.Command" data-win-options="{
             id:'cmdPause',
             label:'Pause',
             section:'primary',
             type:'button',
             icon: 'pause'
-            }"></button>
+            }"></button>-->
         <button data-win-control="WinJS.UI.Command" data-win-options="{
             id:'cmdTare',
             label:'Tare',
             section:'primary',
             type:'button',
             icon: 'download',
-            onclick: scale.tare
+            onclick: Scale.tare
             }"></button>
         <div data-win-control="WinJS.UI.AppBarCommand" data-win-options="{ id: 'input-calibrate', type: 'content'}">
             <div class="win-interactive" data-win-control="WinJS.UI.AutoSuggestBox" 
@@ -67,7 +52,7 @@
             section:'primary',
             type:'button',
             icon: 'repair',
-            onclick: scale.calibrate
+            onclick: Scale.calibrate
             }"></button>
     </div>
     <div class="status"></div>

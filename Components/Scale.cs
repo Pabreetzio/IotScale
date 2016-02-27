@@ -57,6 +57,8 @@ namespace Components
         }
         public void Calibrate(int grams)
         {
+            if (grams == 0)
+                grams = 1;
             calibrationConstant = (_GetOutputData() - offset) / grams;
             ApplicationData.Current.LocalSettings.Values["calibrationConstant"] = calibrationConstant;
             ApplicationData.Current.LocalSettings.Values["offset"] = offset;

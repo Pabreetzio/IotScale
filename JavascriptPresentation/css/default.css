@@ -15,7 +15,12 @@
 	margin-top: 12px;
 }
 
-
 #input-calibrate {
 	margin-top: 6px;
+} 
+
+#result{
+    font-size: 300px;
+    white-space: nowrap;
+    margin: auto;
 }

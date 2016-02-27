@@ -1,17 +1,20 @@
-﻿var scale = {}
-scale.offset = 0;
-scale.lastRead = 0;
-scale.component = new Components.Scale();
-scale.read = function () {
-    scale.lastRead = scale.component.getReading();
-    $("#result").text(scale.lastRead + " kg");
-}
-scale.tare = function () {
-    scale.component.tare();
-    scale.lastRead = 0;
-    $("#result").text(scale.lastRead + " kg");
-}
-scale.calibrate = function () {
-    var currentWeight = $('#input-calibrate').val()
-    scale.component.calibrate(currentWeight);
-}
+﻿var Scale = (function(){
+    var self = {};
+    var lastRead = 0;
+    var component = new Components.Scale();
+    self.read = WinJS.UI.eventHandler(function () {
+        lastRead = component.getReading();
+        $("#result").text(lastRead.toPrecision(5) + " g");
+    });
+    self.tare = WinJS.UI.eventHandler(function () {
+        component.tare();
+        lastRead = 0;
+        $("#result").text(lastRead.toPrecision(5) + " g");
+    });
+    self.calibrate = WinJS.UI.eventHandler(function () {
+        var currentWeight = $('#input-calibrate input').val();
+        currentWeight = currentWeight || 1;
+        component.calibrate(currentWeight);
+    });
+    return self;
+})();
