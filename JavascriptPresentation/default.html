@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>DigitalScale</title>
+    <title>Internet of Things Scale</title>
 
     <!-- WinJS references -->
     <link href="WinJS/css/ui-dark.css" rel="stylesheet" />
@@ -16,24 +16,33 @@
     <script src="js/scale.js"></script>
 </head>
 <body class="win-type-body">
-    <h2 style="text-align:center;" class="win-h2">Internet of Things Scale</h2>
+    <h1 style="text-align:center;" class="win-h1">Internet of Things Scale</h1>
     <div class="basicToolbar" data-win-control="WinJS.UI.ToolBar" data-win-options="{closedDisplayMode: 'full'}">
         <!-- Primary commands -->
         <button data-win-control="WinJS.UI.Command" data-win-options="{
-            id:'cmdRead',
-            label:'Read',
+            id:'cmdBeginReading',
+            label:'Live',
             section:'primary',
             type:'button',
             icon: 'play',
-            onclick: Scale.read
+            onclick: Scale.beginReading
             }"></button>
-        <!--<button data-win-control="WinJS.UI.Command" data-win-options="{
+        <button data-win-control="WinJS.UI.Command" data-win-options="{
+            id:'cmdReadOnce',
+            label:'Next',
+            section:'primary',
+            type:'button',
+            icon: 'next',
+            onclick: Scale.readOnce
+            }"></button>
+        <button data-win-control="WinJS.UI.Command" data-win-options="{
             id:'cmdPause',
             label:'Pause',
             section:'primary',
             type:'button',
-            icon: 'pause'
-            }"></button>-->
+            icon: 'pause',
+            onclick: Scale.pauseReading
+            }"></button>
         <button data-win-control="WinJS.UI.Command" data-win-options="{
             id:'cmdTare',
             label:'Tare',

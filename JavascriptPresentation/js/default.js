@@ -4,20 +4,24 @@
 	"use strict";
 
 	var app = WinJS.Application;
-	var activation = Windows.ApplicationModel.Activation;
 
+	var activation;
+	if (typeof Windows != 'undefined')
+	    activation = Windows.ApplicationModel.Activation;
+	else
+	    activation = { ActivationKind: { launch: 'Windows.Launch' }, ApplicationExecutionState: { terminated: 4 } };
 	app.onactivated = function (args) {
-		if (args.detail.kind === activation.ActivationKind.launch) {
-			if (args.detail.previousExecutionState !== activation.ApplicationExecutionState.terminated) {
-			    // TODO: This application has been newly launched. Initialize your application here.
-			} else {
-				// TODO: This application was suspended and then terminated.
-				// To create a smooth user experience, restore application state here so that it looks like the app never stopped running.
-			}
-			args.setPromise(WinJS.UI.processAll());
-		}
+	    if (args.detail.kind === activation.ActivationKind.launch) {
+	        if (args.detail.previousExecutionState !== activation.ApplicationExecutionState.terminated) {
+	            // TODO: This application has been newly launched. Initialize your application here.
+	        } else {
+	            // TODO: This application was suspended and then terminated.
+	            // To create a smooth user experience, restore application state here so that it looks like the app never stopped running.
+	        }
+	        args.setPromise(WinJS.UI.processAll());
+	    }
 	};
-
+	
 	app.oncheckpoint = function (args) {
 		// TODO: This application is about to be suspended. Save any state that needs to persist across suspensions here.
 		// You might use the WinJS.Application.sessionState object, which is automatically saved and restored across suspension.
