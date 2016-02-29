@@ -5,16 +5,27 @@
     if (typeof Components != 'undefined')
         component = new Components.Scale();
     else
-        component = { getReading: function () { return Math.random(); }, tare: function () { }, calibrate: function () { } };
+        component = {
+            getReading: function () { return Math.random(); },
+            tare: function () { },
+            calibrate: function () { },
+            getLeadingUnit: function () { return ""; },
+            getTrailingUnit: function () { return " g"; }
+        };
     var isReading = false;
     var readingIntervalId;
     var leadingUnit = "";
-    var trailingUnit = " g";
+    var trailingUnit = "";
+    function setUnit() {
+        leadingUnit = component.getLeadingUnit();
+        trailingUnit = component.getTrailingUnit();
+    }
     function writeReading() {
         $("#result").text( leadingUnit + lastRead.toPrecision(5) + trailingUnit);
     }
     function read() {
         lastRead = component.getReading();
+        setUnit();
         writeReading();
     }
     function setUnits(calibrationText, currentWeightText) {

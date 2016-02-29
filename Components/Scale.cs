@@ -55,13 +55,23 @@ namespace Components
         {
             offset = _GetOutputData();
         }
-        public void Calibrate(int grams)
+        public string GetLeadingUnit()
+        {
+            return (string)ApplicationData.Current.LocalSettings.Values["leadingUnit"];
+        }
+        public string GetTrailingUnit()
+        {
+            return (string)ApplicationData.Current.LocalSettings.Values["trailingUnit"];
+        }
+        public void Calibrate(int grams, string trailingUnit = "", string leadingUnit = "")
         {
             if (grams == 0)
                 grams = 1;
             calibrationConstant = (_GetOutputData() - offset) / grams;
             ApplicationData.Current.LocalSettings.Values["calibrationConstant"] = calibrationConstant;
             ApplicationData.Current.LocalSettings.Values["offset"] = offset;
+            ApplicationData.Current.LocalSettings.Values["trailingUnit"] = trailingUnit;
+            ApplicationData.Current.LocalSettings.Values["leadingUnit"] = leadingUnit;
         }
     }
 }
