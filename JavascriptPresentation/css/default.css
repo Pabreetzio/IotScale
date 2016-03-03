@@ -20,7 +20,12 @@
 } 
 
 #result{
-    font-size: 300px;
+    font-size: 150px;
     white-space: nowrap;
     margin: auto;
+}
+.contenttext{
+        display: flex;
+    align-items: center;
+    justify-content: center;
 }
