@@ -46,7 +46,7 @@ namespace AviaSemiconductor
 
             }
             string binaryData = "";
-            for(int pulses = 0; pulses < 25 + (int)InputAndGainOption ; pulses++)
+            for(int pulses = 0; pulses < 25 + (int)InputAndGainSelection ; pulses++)
             {
                 PowerDownAndSerialClockInput.Write(GpioPinValue.High);
                 PowerDownAndSerialClockInput.Write(GpioPinValue.Low);

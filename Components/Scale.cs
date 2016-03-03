@@ -63,7 +63,7 @@ namespace Components
         {
             return (string)ApplicationData.Current.LocalSettings.Values["trailingUnit"];
         }
-        public void Calibrate(int grams, string trailingUnit = "", string leadingUnit = "")
+        public void Calibrate(int grams, string trailingUnit, string leadingUnit)
         {
             if (grams == 0)
                 grams = 1;
