@@ -36,7 +36,7 @@
     self.beginReading = WinJS.UI.eventHandler(function () {
         if (!isReading) {
             isReading = true;
-            readingIntervalId = setInterval(read, 500);
+            readingIntervalId = setInterval(read, 5000);
         }
     });
     self.pauseReading = WinJS.UI.eventHandler(function () {
@@ -58,7 +58,7 @@
             currentWeight = Number(currentWeightText);
             setUnits(calibrationText, currentWeightText);
         }
-        component.calibrate(currentWeight);
+        component.calibrate(currentWeight, trailingUnit, leadingUnit);
     });
     return self;
 })();

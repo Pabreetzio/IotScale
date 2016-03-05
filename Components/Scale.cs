@@ -12,6 +12,7 @@ namespace Components
         GpioPin clockPin;
         public Scale()
         {
+            
             ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
             StorageFolder localFolder = ApplicationData.Current.LocalFolder;
             offset = System.Convert.ToInt32(localSettings.Values["offset"]);
@@ -45,6 +46,7 @@ namespace Components
                 result = device.Read();
             }
             device.PowerDown();
+            Mqtt.sendData(result.ToString());
             return result;
         }
         public double GetReading()
@@ -57,11 +59,17 @@ namespace Components
         }
         public string GetLeadingUnit()
         {
-            return (string)ApplicationData.Current.LocalSettings.Values["leadingUnit"];
+            string unit = (string)ApplicationData.Current.LocalSettings.Values["leadingUnit"];
+            if(unit != null)
+                return unit;
+            return "";
         }
         public string GetTrailingUnit()
         {
-            return (string)ApplicationData.Current.LocalSettings.Values["trailingUnit"];
+            string unit = (string)ApplicationData.Current.LocalSettings.Values["trailingUnit"];
+            if (unit != null)
+                return unit;
+            return "";
         }
         public void Calibrate(int grams, string trailingUnit, string leadingUnit)
         {
