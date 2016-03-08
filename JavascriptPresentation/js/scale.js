@@ -9,23 +9,19 @@
             getReading: function () { return Math.random(); },
             tare: function () { },
             calibrate: function () { },
-            getLeadingUnit: function () { return ""; },
-            getTrailingUnit: function () { return " g"; }
+            leadingUnit: "",
+            trailingUnit: " g"
         };
     var isReading = false;
     var readingIntervalId;
     var leadingUnit = "";
     var trailingUnit = "";
-    function setUnit() {
-        leadingUnit = component.getLeadingUnit();
-        trailingUnit = component.getTrailingUnit();
-    }
+
     function writeReading() {
-        $("#result").text( leadingUnit + lastRead.toPrecision(5) + trailingUnit);
+        $("#result").text( lastRead);
     }
     function read() {
         lastRead = component.getReading();
-        setUnit();
         writeReading();
     }
     function setUnits(calibrationText, currentWeightText) {
@@ -58,7 +54,9 @@
             currentWeight = Number(currentWeightText);
             setUnits(calibrationText, currentWeightText);
         }
-        component.calibrate(currentWeight, trailingUnit, leadingUnit);
+        component.trailingUnit = trailingUnit;
+        component.leadingUnit = leadingUnit;
+        component.calibrate(currentWeight);
     });
     return self;
 })();
