@@ -43,7 +43,7 @@
     self.readOnce = WinJS.UI.eventHandler(read);
     self.tare = WinJS.UI.eventHandler(function () {
         component.tare();
-        lastRead = 0;
+        read();
         writeReading();
     });
     self.calibrate = WinJS.UI.eventHandler(function () {
