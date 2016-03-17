@@ -1,0 +1,13 @@
+{
+  "name": "NodejsWebServer",
+  "version": "0.0.0",
+  "description": "NodejsWebServer",
+  "main": "server.js",
+  "author": {
+    "name": "Patrick",
+    "email": "pabreetzio@gmail.com"
+  },
+  "dependencies" : {
+    "express" : "3.x"
+  }
+}
