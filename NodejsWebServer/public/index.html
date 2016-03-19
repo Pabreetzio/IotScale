@@ -1,11 +1,72 @@
 ﻿<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <title>Internet of Things Scale</title>
+
+    <!-- WinJS references -->
+    <link href="WinJS/css/ui-dark.css" rel="stylesheet" />
+    <script src="WinJS/js/base.js"></script>
+    <script src="WinJS/js/ui.js"></script>
+
+    <!-- DigitalScale references -->
+    <link href="css/default.css" rel="stylesheet" />
+    <script src="js/default.js"></script>
+    <script src="js/jquery-2.2.0.min.js"></script>
+    <script src="js/scale.js"></script>
 </head>
-<body>
-    Hello World!
+<body class="win-type-body">
+    <h1 style="text-align:center;" class="win-h1">Internet of Things Scale</h1>
+    <div class="basicToolbar" data-win-control="WinJS.UI.AppBar" data-win-options="{closedDisplayMode: 'full'}">
+        <!-- Primary commands -->
+        <button data-win-control="WinJS.UI.Command" data-win-options="{
+            id:'cmdBeginReading',
+            label:'Live',
+            section:'primary',
+            type:'button',
+            icon: 'play',
+            onclick: Scale.beginReading
+            }"></button>
+        <button data-win-control="WinJS.UI.Command" data-win-options="{
+            id:'cmdReadOnce',
+            label:'Next',
+            section:'primary',
+            type:'button',
+            icon: 'next',
+            onclick: Scale.readOnce
+            }"></button>
+        <button data-win-control="WinJS.UI.Command" data-win-options="{
+            id:'cmdPause',
+            label:'Pause',
+            section:'primary',
+            type:'button',
+            icon: 'pause',
+            onclick: Scale.pauseReading
+            }"></button>
+        <button data-win-control="WinJS.UI.Command" data-win-options="{
+            id:'cmdTare',
+            label:'Tare',
+            section:'primary',
+            type:'button',
+            icon: 'download',
+            onclick: Scale.tare
+            }"></button>
+        <div data-win-control="WinJS.UI.AppBarCommand" data-win-options="{ id: 'input-calibrate', type: 'content'}">
+            <div class="win-interactive" data-win-control="WinJS.UI.AutoSuggestBox"
+                 data-win-options="{placeholderText:'Calibrated value'}"></div>
+        </div>
+        <button data-win-control="WinJS.UI.Command" data-win-options="{
+            id:'cmdCalibrate',
+            label:'Calibrate',
+            section:'primary',
+            type:'button',
+            icon: 'repair',
+            onclick: Scale.calibrate
+            }"></button>
+    </div>
+    <div class="status"></div>
+    <div class="contenttext">
+        <div id="result">0.0g</div>
+    </div>
 </body>
 </html>

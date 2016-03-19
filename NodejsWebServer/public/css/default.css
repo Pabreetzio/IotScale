@@ -1,0 +1,31 @@
+﻿body {
+	background-color: rgb(112,112,112);
+}
+
+#content {
+	text-align: center;
+}
+
+.basicToolbar {
+	margin-top: 5px;
+    width: 100%;
+}
+
+.status {
+	margin-top: 12px;
+}
+
+#input-calibrate {
+	margin-top: 14px;
+} 
+
+#result{
+    font-size: 150px;
+    white-space: nowrap;
+    margin: auto;
+}
+.contenttext{
+        display: flex;
+    align-items: center;
+    justify-content: center;
+}

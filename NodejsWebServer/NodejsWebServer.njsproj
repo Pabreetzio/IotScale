@@ -45,9 +45,18 @@
     <OutputPath>bin\Release\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="public\js\default.js" />
+    <Compile Include="public\js\jquery-2.2.0.min.js" />
+    <Compile Include="public\js\scale.js" />
+    <Compile Include="public\WinJS\js\base.js" />
+    <Compile Include="public\WinJS\js\en-US\ui.strings.js" />
+    <Compile Include="public\WinJS\js\ui.js" />
     <Compile Include="server.js" />
     <Content Include="package.json" />
     <Content Include="public\index.html" />
+    <Content Include="public\WinJS\css\ui-dark.css" />
+    <Content Include="public\WinJS\css\ui-light.css" />
+    <Content Include="public\WinJS\fonts\Symbols.ttf" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -65,6 +74,13 @@
   <ItemGroup>
     <Folder Include="Assets\" />
     <Folder Include="public\" />
+    <Folder Include="public\css\" />
+    <Folder Include="public\js\" />
+    <Folder Include="public\WinJS\" />
+    <Folder Include="public\WinJS\css\" />
+    <Folder Include="public\WinJS\fonts\" />
+    <Folder Include="public\WinJS\js\" />
+    <Folder Include="public\WinJS\js\en-US\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsUwp.targets" />
   <PropertyGroup>
@@ -96,7 +112,9 @@
         </NodejsUwpProjectFlavorCfg>
       </FlavorProperties>
       <FlavorProperties GUID="{00251f00-ba30-4ce4-96a2-b8a1085f37aa}" Configuration="Release" Platform="ARM">
-        <NodejsUwpProjectFlavorCfg />
+        <NodejsUwpProjectFlavorCfg>
+          <DebuggerMachineName>jarvis</DebuggerMachineName>
+        </NodejsUwpProjectFlavorCfg>
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
